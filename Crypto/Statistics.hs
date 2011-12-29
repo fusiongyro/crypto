@@ -8,8 +8,6 @@ import Data.Function
 import Data.List
 import qualified Data.Map as Map
 
-length = genericLength
-
 -- Frequencies for English letters, taken from 
 -- http://en.wikipedia.org/wiki/Letter_frequency
 englishFrequencies :: [(Char, Float)]
