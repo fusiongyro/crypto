@@ -4,6 +4,7 @@ module Crypto.Support ( Codec
                       , encode
                       , decode
                       , rotate
+                      , codec
                       , Key(..)
                       , Crackable
                       , crack
