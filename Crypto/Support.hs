@@ -11,6 +11,7 @@ module Crypto.Support ( Codec
                       , modularMultiplicativeInverse
                       , alsoUpperCase
                       , ignoreNonAlphas
+                      , intToChar
                       ) where
 
 import Crypto.Partial
@@ -45,9 +46,12 @@ class Crackable key where
 
 -- Various utility functions below
 
+intToChar :: (Int -> Int) -> Char -> Char
+intToChar f c = chr $ (f (ord c - ord 'a')) `mod` 26 + ord 'a'
+
 -- | "Rotate" the given character by x letters through the alphabet.
 rotateChar :: Int -> Char -> Char
-rotateChar x c = chr $ (ord c - ord 'a' + x) `mod` 26 + ord 'a'
+rotateChar x = intToChar (+x)
 
 -- | alsoUpperCase - if f changes a lowercase character, make it work
 -- for upper case characters as well.

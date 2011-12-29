@@ -9,11 +9,15 @@ data Affine = Affine Int Int
               deriving (Show)
 
 instance Codec Affine where
-  encode aff = map (toTotal (partialFun isAlpha (affineChar aff)))
-  decode aff = encode (invert aff)
+  encode aff = ignoreNonAlphas (affineChar aff)
+  decode aff = ignoreNonAlphas (deAffineChar (invert aff))
 
-affineChar :: Affine -> Char -> Char
-affineChar = undefined
+affineChar, deAffineChar :: Affine -> Char -> Char
+affineChar (Affine a b)   = intToChar (\c -> c * a + b)
+deAffineChar (Affine a b) = intToChar (\c -> (c + b) * a)
 
 invert :: Affine -> Affine
 invert (Affine a b) = Affine (modularMultiplicativeInverse a 26) (-b)
+
+test_affine = encode (Affine 5 8) "Affine Cipher" == "Ihhwvc Swfrcp"
+test_affine2 = (decode (Affine 5 8) $ encode (Affine 5 8) "Affine Cipher") == "Affine Cipher"

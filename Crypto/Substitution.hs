@@ -15,13 +15,10 @@ substitution :: String -> Substitution
 substitution = Substitution
 
 generateMapping :: String -> Map.Map Char Char
-generateMapping str = Map.fromList $ lowerString ++ upperString
-    where
-      lowerString = zip ['a'..'z'] str
-      upperString = zip ['A'..'Z'] (map toUpper str)
+generateMapping str = Map.fromList $ zip ['a'..'z'] str
 
 substituteChars :: Map.Map Char Char -> String -> String
-substituteChars key = map $ toTotal $ partialFun isAlpha enc
+substituteChars key = ignoreNonAlphas enc
     where 
       enc c = Map.findWithDefault c c key
 
