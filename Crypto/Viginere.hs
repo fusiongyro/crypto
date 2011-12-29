@@ -13,7 +13,11 @@ viginereKeySequence :: String -> [Int]
 viginereKeySequence key = map (\c -> ord (toUpper c) - ord 'A') key
 
 viginereShift :: [Int] -> String -> String
-viginereShift key = zipWith rotate (cycle key)
+viginereShift _ [] = []
+viginereShift key@(k:ks) (c:cs) = 
+    if isAlpha c 
+    then alsoUpperCase (rotateChar k) c : viginereShift (ks ++ [k]) cs
+    else c : viginereShift key cs
 
 viginere :: String -> Viginere
 viginere s = Viginere s

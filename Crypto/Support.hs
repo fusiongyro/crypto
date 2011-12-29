@@ -3,13 +3,17 @@
 module Crypto.Support ( Codec
                       , encode
                       , decode
-                      , rotate
+                      , rotateChar
                       , codec
                       , Key(..)
                       , Crackable
                       , crack
                       , modularMultiplicativeInverse
+                      , alsoUpperCase
+                      , ignoreNonAlphas
                       ) where
+
+import Crypto.Partial
 
 import Data.Char
 
@@ -42,12 +46,20 @@ class Crackable key where
 -- Various utility functions below
 
 -- | "Rotate" the given character by x letters through the alphabet.
-rotate :: Int -> Char -> Char
-rotate x c = rot 'a' 'z' (rot 'A' 'Z' c)
-    where
-      rot low high c = if c >= low && c <= high 
-                       then chr $ (ord c - ord low + x) `mod` 26 + ord low
-                       else c
+rotateChar :: Int -> Char -> Char
+rotateChar x c = chr $ (ord c - ord 'a' + x) `mod` 26 + ord 'a'
+
+-- | alsoUpperCase - if f changes a lowercase character, make it work
+-- for upper case characters as well.
+alsoUpperCase :: (Char -> Char) -> Char -> Char
+alsoUpperCase f c = if isUpper c 
+                    then toUpper $ f $ toLower c
+                    else f c
+
+-- | ignoreNonAlphas - make f work on both cases and non-alphabetic chars by
+-- ignoring them.
+ignoreNonAlphas :: (Char -> Char) -> String -> String
+ignoreNonAlphas f = map $ toTotal $ partialFun isAlpha (alsoUpperCase f)
 
 -- modular arithmetic helpers
 extendedGcd a 0 = (1, 0)
