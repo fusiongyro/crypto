@@ -5,6 +5,8 @@ module Crypto.Shift ( Shift
 
 import Crypto.Support
 import Crypto.Statistics
+
+import Data.Char
 import Data.Function
 import Data.List
 
@@ -21,8 +23,8 @@ caesar :: Shift
 caesar = shift 3
 
 instance Codec Shift where
-  encode (Shift x) = map $ rotate x
   decode (Shift x) = encode $ Shift (-x)
+  encode (Shift x) = ignoreNonAlphas (rotateChar x)
 
 instance Crackable Shift where
   -- take the best quality key, where the quality is the distance-from-English
