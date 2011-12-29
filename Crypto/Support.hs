@@ -1,15 +1,13 @@
 {-# LANGUAGE ExistentialQuantification #-}
 
-module Crypto.Support
-  ( module Data.Char
-  , Codec
-  , encode
-  , decode
-  , rotate
-  , Key(..)
-  , Crackable
-  , crack
-  ) where
+module Crypto.Support ( Codec
+                      , encode
+                      , decode
+                      , rotate
+                      , Key(..)
+                      , Crackable
+                      , crack
+                      ) where
 
 import Data.Char
 

@@ -4,6 +4,7 @@ module Crypto.Statistics (distanceFromEnglish) where
 
 import Crypto.Support
 
+import Data.Char
 import Data.Function
 import Data.List
 import qualified Data.Map as Map

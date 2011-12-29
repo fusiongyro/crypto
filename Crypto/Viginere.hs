@@ -1,8 +1,10 @@
-module Crypto.Viginere 
-  ( Viginere
-  , viginere) where
+module Crypto.Viginere ( Viginere
+                       , viginere
+                       ) where
 
 import Crypto.Support
+
+import Data.Char
 
 newtype Viginere = Viginere String
   deriving (Show, Eq)

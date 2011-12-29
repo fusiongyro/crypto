@@ -1,8 +1,7 @@
-module Crypto.Shift 
-  ( Shift
-  , shift
-  , caesar
-  , bruteShift ) where
+module Crypto.Shift ( Shift
+                    , shift
+                    , caesar
+                    ) where
 
 import Crypto.Support
 import Crypto.Statistics
@@ -33,9 +32,6 @@ instance Crackable Shift where
       quality      = compare `on` distanceFromEnglish `on` (flip decode s)
       allShiftKeys = map shift [0..25]
 
-bruteShift :: String -> String
-bruteShift source = decode (crack source :: Shift) source
-
 tristessesDeLaLune = 
    "   the moon tonight, more indolently dreaming,\n\
 \   as on a pillowed bed, a woman seems,\n\
@@ -58,4 +54,3 @@ tristessesDeLaLune =
 tristessesEncoded = encode caesar tristessesDeLaLune
 
 test_crack = crack tristessesEncoded == caesar
-test_bruteShift = bruteShift tristessesEncoded == tristessesDeLaLune
