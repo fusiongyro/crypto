@@ -8,6 +8,7 @@ module Crypto.Support ( Codec
                       , Key(..)
                       , Crackable
                       , crack
+                      , modularMultiplicativeInverse
                       ) where
 
 import Data.Char
@@ -47,3 +48,14 @@ rotate x c = rot 'a' 'z' (rot 'A' 'Z' c)
       rot low high c = if c >= low && c <= high 
                        then chr $ (ord c - ord low + x) `mod` 26 + ord low
                        else c
+
+-- modular arithmetic helpers
+extendedGcd a 0 = (1, 0)
+extendedGcd a b = (t, s - q * t)
+  where
+    (q, r) = a `divMod` b
+    (s, t) = extendedGcd b r
+
+modularMultiplicativeInverse a m = t `mod` m
+    where
+      (t, _) = extendedGcd a m
