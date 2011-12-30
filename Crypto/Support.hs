@@ -12,6 +12,7 @@ module Crypto.Support ( Codec
                       , alsoUpperCase
                       , ignoreNonAlphas
                       , intToChar
+                      , tristessesDeLaLune
                       ) where
 
 import Crypto.Partial
@@ -41,7 +42,7 @@ codec key = (encode key, decode key)
 
 -- | Defines the set of crackable cryptography.
 class Crackable key where
-  crack :: String -> key
+  crack :: String -> [key]
 
 
 -- Various utility functions below
@@ -75,3 +76,22 @@ extendedGcd a b = (t, s - q * t)
 modularMultiplicativeInverse a m = t `mod` m
     where
       (t, _) = extendedGcd a m
+
+tristessesDeLaLune = 
+   "   the moon tonight, more indolently dreaming,\n\
+\   as on a pillowed bed, a woman seems,\n\
+\   caressing with a hand distraught and gleaming,\n\
+\   her soft curved bosom, ere she sinks in dreams.\n\
+\ \n\    
+\   against a snowy satin avalanche\n\
+\   she lies entranced and drowned in swooning hours,\n\
+\   her gaze upon the visions born to blanch\n\
+\   those far blue depths with ever-blossoming flowers.\n\
+\ \n\
+\   and when in some soft languorous interval,\n\
+\   earthward, she lets a stealthy tear-drop fall,\n\
+\   a poet, foe to slumber, toiling on,\n\
+\ \n\
+\   with reverent hollow hand receives the pearl,\n\
+\   where shimmering opalescences unfurl,\n\
+\   and shields it in his heart, far from the sun."

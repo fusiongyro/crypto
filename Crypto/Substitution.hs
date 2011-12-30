@@ -39,18 +39,17 @@ instance Codec Substitution where
 
 -- | pick : choose the character in this distribution with the nearest
 -- frequency rate to the supplied character/rate.
-type Frequency = (Char, Float)
-type Distribution = [Frequency]
-
 pick :: Frequency -> Distribution -> (Frequency, Distribution)
-pick (_, freq) l = (winner, delete winner l)
+pick (_, freq) l = (winner, Map.fromList $ delete winner asList)
     where
-      winner   = head $ sortBy nearness l
+      asList   = Map.toList l
+      winner   = head $ sortBy nearness asList
       nearness (_, lfreq) (_, rfreq) = abs (lfreq - freq) `compare` (abs (rfreq - freq))
 
 guessDistribution :: Distribution -> [(Char, Char)]
-guessDistribution d = go d englishFrequencies
+guessDistribution d = go (Map.toList d) englishFrequencies
   where
+    go [] _ = []
     go (freq@(c,f):freqs) distrib = (c, out) : rest 
         where
           ((out, _), remaining) = pick freq distrib
