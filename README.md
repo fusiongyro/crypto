@@ -51,17 +51,17 @@ use encode to produce the ciphertext:
 
     *Crypto> let Just key = affine 3 5
     Just (Affine 3 5)
-
+    
     *Crypto> let cipher = encode key "This is a test of the affine cipher"
     *Crypto> cipher
-		"Kadh dh f krhk vu kar fuudsr ldyare"
-
-		*Crypto> decode key cipher
-		"This is a test of the affine cipher"
-
-		*Crypto> bruteForce cipher :: (Key, String)
-		(Key (Affine 3 5),"This is a test of the affine cipher")
-		
+    "Kadh dh f krhk vu kar fuudsr ldyare"
+    
+    *Crypto> decode key cipher
+    "This is a test of the affine cipher"
+    
+    *Crypto> bruteForce cipher :: (Key, String)
+    (Key (Affine 3 5),"This is a test of the affine cipher")
+    
 ### BruteForce
 
 The BruteForce module defines a single method, `bruteForce`, which given a
