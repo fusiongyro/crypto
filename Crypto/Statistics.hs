@@ -1,6 +1,8 @@
 {-# LANGUAGE ParallelListComp #-}
 
-module Crypto.Statistics (distanceFromEnglish) where
+module Crypto.Statistics ( distanceFromEnglish
+                         , englishFrequencies
+                         ) where
 
 import Crypto.Support
 
@@ -57,4 +59,3 @@ frequencies sample = Map.fromList map'
       glength = genericLength
       len     = glength sample
       upper   = group $ sort $ map toUpper sample
-      
