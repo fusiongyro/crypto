@@ -1,7 +1,10 @@
 {-# LANGUAGE ParallelListComp #-}
 
-module Crypto.Statistics ( distanceFromEnglish
+module Crypto.Statistics ( Frequency
+                         , Distribution
+                         , distanceFromEnglish
                          , englishFrequencies
+                         , frequencies
                          ) where
 
 import Crypto.Support
@@ -11,10 +14,13 @@ import Data.Function
 import Data.List
 import qualified Data.Map as Map
 
+type Frequency = (Char, Float)
+type Distribution = Map.Map Char Float
+
 -- Frequencies for English letters, taken from 
 -- http://en.wikipedia.org/wiki/Letter_frequency
-englishFrequencies :: [(Char, Float)]
-englishFrequencies = [('A', 0.11602), 
+englishFrequencies :: Distribution
+englishFrequencies = Map.fromList [('A', 0.11602), 
                       ('B', 0.04702),
                       ('C', 0.03511),	
                       ('D', 0.02670),	
@@ -49,10 +55,10 @@ distanceFromEnglish s = sum distances
     initialMap = Map.fromList [ (c, 0) | c <- ['A'..'Z'] ]
     distances = [ abs (thisFreq - engFreq)
                 | (_, thisFreq) <- theseFreqs 
-                | (_, engFreq) <- englishFrequencies ]
+                | (_, engFreq) <- Map.toList englishFrequencies ]
 
 -- | Calculate the letter frequency distribution for a given sample of text
-frequencies :: String -> Map.Map Char Float
+frequencies :: String -> Distribution
 frequencies sample = Map.fromList map'
     where
       map'    = [ (head l, glength l / len) | l <- upper, isAlpha (head l) ]
