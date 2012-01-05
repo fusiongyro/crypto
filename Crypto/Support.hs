@@ -13,6 +13,7 @@ module Crypto.Support ( Codec
                       , ignoreNonAlphas
                       , intToChar
                       , tristessesDeLaLune
+					  , isAsciiLetter
                       ) where
 
 import Crypto.Partial
@@ -61,10 +62,15 @@ alsoUpperCase f c = if isUpper c
                     then toUpper $ f $ toLower c
                     else f c
 
+-- | isAsciiLetter returns True iff the character is a letter in the ASCII
+-- character set
+isAsciiLetter :: Char -> Bool
+isAsciiLetter x = isAscii x && isLetter x
+
 -- | ignoreNonAlphas - make f work on both cases and non-alphabetic chars by
 -- ignoring them.
 ignoreNonAlphas :: (Char -> Char) -> String -> String
-ignoreNonAlphas f = map $ toTotal $ partialFun isAlpha (alsoUpperCase f)
+ignoreNonAlphas f = map $ toTotal $ partialFun isAsciiLetter (alsoUpperCase f)
 
 -- modular arithmetic helpers
 extendedGcd a 0 = (1, 0)
