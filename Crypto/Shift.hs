@@ -36,5 +36,3 @@ instance Crackable Shift where
             | key <- map shift [1..25]
             , then sortWith by distanceFromEnglish $ decode key t
             , then takeWhile by distanceFromEnglish (decode key t) <= 0.7 ]
-
-test_crack = head (crack (encode caesar tristessesDeLaLune)) == caesar

@@ -1,6 +1,6 @@
 {-# LANGUAGE TransformListComp #-}
 
-module Crypto.Affine (Affine, affine) where
+module Crypto.Affine (Affine, affine, forceAffine, validAffineParameters) where
 
 import Crypto.Partial
 import Crypto.Support
@@ -15,11 +15,19 @@ import GHC.Exts
 data Affine = Affine Int Int
               deriving (Show, Eq)
 
+validAffineParameters :: Int -> Int -> Bool
+validAffineParameters a b = (a `mod` 26) `gcd` 26 == 1 
+
 affine :: Int -> Int -> Maybe Affine
 affine a b = 
-  if (a `mod` 26) `gcd` 26 == 1 
+  if validAffineParameters a b
   then Just $ Affine (a `mod` 26) (b `mod` 26)
   else Nothing
+
+forceAffine :: Int -> Int -> Affine
+forceAffine a b = x 
+  where
+    (Just x) = affine a b
 
 instance Codec Affine where
   encode aff = ignoreNonAlphas (affineChar aff)
