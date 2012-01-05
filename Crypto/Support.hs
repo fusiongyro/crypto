@@ -48,7 +48,7 @@ class Crackable key where
 -- Various utility functions below
 
 intToChar :: (Int -> Int) -> Char -> Char
-intToChar f c = chr $ (f (ord c - ord 'a')) `mod` 26 + ord 'a'
+intToChar f c = chr $ f (ord c - ord 'a') `mod` 26 + ord 'a'
 
 -- | "Rotate" the given character by x letters through the alphabet.
 rotateChar :: Int -> Char -> Char

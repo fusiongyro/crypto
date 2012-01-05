@@ -33,7 +33,7 @@ invert :: Affine -> Affine
 invert (Affine a b) = Affine (modularMultiplicativeInverse a 26) (-b)
 
 test_affine = encode (Affine 5 8) "Affine Cipher" == "Ihhwvc Swfrcp"
-test_affine2 = (decode (Affine 5 8) $ encode (Affine 5 8) "Affine Cipher") == "Affine Cipher"
+test_affine2 = decode (Affine 5 8) (encode (Affine 5 8) "Affine Cipher") == "Affine Cipher"
 
 instance Crackable Affine where
   crack t = [ key

@@ -10,7 +10,7 @@ newtype Viginere = Viginere String
   deriving (Show, Eq)
 
 viginereKeySequence :: String -> [Int]
-viginereKeySequence key = map (\c -> ord (toUpper c) - ord 'A') key
+viginereKeySequence = map $ \c -> ord (toUpper c) - ord 'A'
 
 viginereShift :: [Int] -> String -> String
 viginereShift _ [] = []
@@ -20,7 +20,7 @@ viginereShift key@(k:ks) (c:cs) =
     else c : viginereShift key cs
 
 viginere :: String -> Viginere
-viginere s = Viginere s
+viginere = Viginere
 
 instance Codec Viginere where
   encode (Viginere key) = viginereShift $ viginereKeySequence key
