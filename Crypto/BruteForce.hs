@@ -28,7 +28,7 @@ instance BruteForceResult Key where
   bruteForce encoded = head $ bruteForce encoded
 
 instance BruteForceResult [String] where
-  bruteForce encoded = map snd $ (bruteForce encoded :: [(Key, String)])
+  bruteForce encoded = map snd (bruteForce encoded :: [(Key, String)])
 
 instance BruteForceResult String where
   bruteForce encoded = head $ bruteForce encoded

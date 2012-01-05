@@ -1,18 +1,10 @@
-module Crypto ( module Crypto.Partial
-              , module Crypto.Support
-              , module Crypto.Shift
-              , module Crypto.Affine
-              , module Crypto.Substitution
-              , module Crypto.Viginere
-              , module Crypto.Statistics
-              , module Crypto.BruteForce
-              ) where
+module Crypto (module X) where
 
-import Crypto.Partial
-import Crypto.Support
-import Crypto.Shift
-import Crypto.Affine
-import Crypto.Substitution
-import Crypto.Viginere
-import Crypto.Statistics
-import Crypto.BruteForce
+import Crypto.Partial as X
+import Crypto.Support as X
+import Crypto.Shift as X
+import Crypto.Affine as X
+import Crypto.Substitution as X
+import Crypto.Viginere as X
+import Crypto.Statistics as X
+import Crypto.BruteForce as X

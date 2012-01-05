@@ -44,7 +44,7 @@ pick (_, freq) l = (winner, Map.fromList $ delete winner asList)
     where
       asList   = Map.toList l
       winner   = head $ sortBy nearness asList
-      nearness (_, lfreq) (_, rfreq) = abs (lfreq - freq) `compare` (abs (rfreq - freq))
+      nearness (_, lfreq) (_, rfreq) = abs (lfreq - freq) `compare` abs (rfreq - freq)
 
 guessDistribution :: Distribution -> [(Char, Char)]
 guessDistribution d = go (Map.toList d) englishFrequencies
