@@ -13,8 +13,8 @@ import Crypto
 
 main  = mapM_ (\(s,a) -> printf "%-25s: " s >> a) tests
 
-tests = [ ("encode s != s",          quickCheck prop_encodes)
-        , ("decode (encode s) == s", quickCheck prop_decodes) ]
+tests = [ ("encode /= id",          quickCheck prop_encodes)
+        , ("decode . encode == id", quickCheck prop_decodes) ]
 
 prop_encodes :: Key -> String -> Bool
 prop_encodes key s = encode key s `encodes` s
